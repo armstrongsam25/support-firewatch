@@ -11,6 +11,6 @@
   "dogfood": {
     "input": "Support queue snapshot with 4 tickets about login page 500 errors on api-gateway",
     "output": "Cluster detected with 4 tickets, all 3 escalation signals, max_severity: urgent, P1 priority, escalation_target: on-call-engineer",
-    "receipt_id": "local-harness-run"
+    "receipt_id": "sha256:2034a8fb76ca6969c7dc5d897e1d058853122c422648c431748a0cb727da2b31"
   }
 }

@@ -8,5 +8,8 @@
   },
   "runx_version": "0.6.16",
   "source_repo": "https://github.com/armstrongsam25/runx-support-firewatch-skill",
-  "pr_url": "pending"
+  "pr_url": "https://github.com/runxhq/runx/pull/250",
+  "public_url": "https://runx.ai/x/armstrongsam25/support-firewatch@sha-2c1efd01e583",
+  "dogfood_receipt": "sha256:2034a8fb76ca6969c7dc5d897e1d058853122c422648c431748a0cb727da2b31",
+  "dogfood_receipt_valid": true
 }

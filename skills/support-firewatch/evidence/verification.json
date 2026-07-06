@@ -1,38 +1,80 @@
 {
+  "schema": "runx.delivery.verification.v1",
+  "bounty": 80,
+  "submitted_at": "2026-07-06T02:16:00Z",
+  "agent_kid": "agent-c2409e",
+  "operator_handle": "armstrongsam25",
+  "runx_cli_version": "runx-cli 0.6.16",
   "harness": {
     "status": "passed",
-    "case_count": 3,
-    "assertion_error_count": 0,
-    "cases": [
-      {"name": "sealed_escalation_flagged", "status": "sealed", "reason_code": "process_closed"},
-      {"name": "refused_no_escalation_healthy_thread", "status": "sealed", "reason_code": "process_closed"},
-      {"name": "stop_missing_required_inputs", "status": "failure", "reason_code": "process_failed"}
-    ]
-  },
-  "hosted_registry": {
+    "registry_source": "https://api.runx.ai",
     "skill_id": "armstrongsam25/support-firewatch",
     "version": "sha-78522e303a2f",
-    "page_url": "https://runx.ai/x/armstrongsam25/support-firewatch",
-    "harness_status": "passed"
+    "case_count": 3,
+    "checks_passed": 3,
+    "checks_failed": 0,
+    "cases": [
+      {
+        "name": "sealed_escalation_flagged",
+        "runner": "default",
+        "expected_status": "sealed",
+        "receipt_id": "sha256:fa1d2d553872420f744132afa28015cddeb92c0a25826a2ebdc3672cd7e97326"
+      },
+      {
+        "name": "refused_no_escalation_healthy_thread",
+        "runner": "default",
+        "expected_status": "sealed",
+        "receipt_id": "sha256:1d93140bf634dad1bc25af8e0a9ec5e936cc9129ab98cf01965fbd1b17de039d"
+      },
+      {
+        "name": "stop_missing_required_inputs",
+        "runner": "default",
+        "expected_status": "failure",
+        "receipt_id": "sha256:898fac601d01841d6c7ecbebe079c667af4a931c9ff57ed3b30679151f370d03"
+      }
+    ],
+    "evidence_url": "https://runx.ai/x/armstrongsam25/support-firewatch@sha-78522e303a2f#harness",
+    "latest_run_id": "runx-harness:armstrongsam25/support-firewatch:sha-78522e303a2f"
   },
-  "receipts": {
-    "harness_receipts": [
-      "sha256:8a69fae6a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8",
-      "sha256:296fe22ba1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8",
-      "sha256:2f063440a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8"
-    ],
-    "dogfood_receipts": [
-      "sha256:521da8cf9740a0d0e3d8b9f1c2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1",
-      "sha256:40cfd5c6a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8"
-    ],
-    "verification": "all receipts verified valid: true (digest valid, content_address valid, signature valid Ed25519)"
+  "dogfood_receipt": {
+    "receipt_id": "sha256:7d0450e00cad67b7b43566882ffd961490d2d50023c8d5a002b1daaf48308ed8",
+    "run_id": "run_default_717d01606eaa",
+    "schema": "runx.skill_run.v1",
+    "status": "sealed",
+    "closed_at": "2026-07-06T02:15:36.225Z",
+    "disposition": "closed",
+    "reason_code": "process_closed",
+    "registry_provenance": {
+      "registry_source": "remote https://api.runx.ai",
+      "trust_state": "trusted",
+      "version": "sha-78522e303a2f",
+      "digest": "sha256:dad3299c2224bd08910decbe1064a88092ef4d6314f618354d1a0ba349969cd7",
+      "profile_digest": "sha256:53bbafbcc59e7563ab7792ef594830300dfecdd2f5f555b6ee07d114ea369f4c"
+    },
+    "verification": {
+      "valid": true,
+      "digest_status": "valid",
+      "content_address_status": "valid",
+      "signature_status": "valid",
+      "signature_mode": "production",
+      "signature_kid": "runx-demo-key"
+    }
   },
   "pr": {
+    "number": 250,
     "url": "https://github.com/runxhq/runx/pull/250",
-    "state": "open",
+    "state": "OPEN",
+    "title": "Add support-firewatch skill",
     "head": "armstrongsam25:skill/support-firewatch",
-    "base": "main"
+    "base": "main",
+    "repo": "runxhq/runx",
+    "fork_repo": "armstrongsam25/runx",
+    "fork_commit_sha": "7644c7179e3ac7e2817d60299c4f6e0bf3b46b0d"
   },
-  "source_repo": "https://github.com/armstrongsam25/support-firewatch",
-  "source_commit": "bd60c3a76d222feee4ae95c38752b0fc2e52052b"
+  "source_repo": {
+    "url": "https://github.com/armstrongsam25/runx-support-firewatch-skill",
+    "commit_sha": "1fd1ead723876ddb6f29fe648a10b69ae3a152ce",
+    "source_url": "https://github.com/armstrongsam25/runx-support-firewatch-skill/tree/1fd1ead723876ddb6f29fe648a10b69ae3a152ce",
+    "skill_path": "skills/support-firewatch"
+  }
 }

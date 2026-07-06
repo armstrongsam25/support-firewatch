@@ -1,18 +1,36 @@
 {
-  "summary": "Support firewatch skill reads a support thread and SLA policy, detects sentiment, SLA breach, and churn risk signals, and emits an escalation packet only when warranted. Routes to human approval inbox without paging, reassigning, or notifying customers.",
+  "runx_cli_version": "runx-cli 0.6.16",
+  "summary": "Published the support-firewatch runx skill to GitHub and the hosted runx registry, opened PR #250 against runxhq/runx, and ran a dogfood test from the hosted registry that sealed successfully with a verified receipt. The skill reads a support thread and SLA policy, detects sentiment (very_negative), SLA breach (first response 360m vs 60m policy), and churn risk (medium), and emits an escalation packet (needed=true, priority=high). Harness passes 3/3 on the hosted registry.",
   "observations": [
-    "Skill reads thread (array of customer/agent turns) and sla_policy (response_time_minutes, resolution_hours) as typed inputs",
-    "Sentiment detection uses keyword analysis on customer turns: positive, neutral, negative, very_negative",
-    "SLA breach detection compares first-response gap to sla_policy.response_time_minutes policy clock",
-    "Churn risk detection identifies cancellation/competitor language: none, low, medium, high",
-    "Escalation packet (needed, priority, context) emitted only when warranted — routes to human approval inbox, pages nobody, reassigns nothing, notifies no customer",
-    "Each signal carries _evidence grounding it to a specific thread turn or policy clock",
-    "Harness passes 3/3: sealed_escalation_flagged (very_negative, sla_breach=true, churn_risk=medium → escalation needed, high priority), refused_no_escalation_healthy_thread (positive, no breach, no churn → no escalation), stop_missing_required_inputs (empty turns → failure)"
+    "runx --version output: runx-cli 0.6.16 (satisfies 0.6.14 floor)",
+    "Publisher owner: armstrongsam25; package name: support-firewatch; version: sha-78522e303a2f; registry ref: armstrongsam25/support-firewatch@sha-78522e303a2f",
+    "public_url: https://runx.ai/x/armstrongsam25/support-firewatch@sha-78522e303a2f (live, HTTP 200)",
+    "pr_url: https://github.com/runxhq/runx/pull/250 (open, contains skills/support-firewatch/X.yaml, SKILL.md, run.mjs, evidence)",
+    "source_url: https://github.com/armstrongsam25/runx-support-firewatch-skill/tree/1fd1ead723876ddb6f29fe648a10b69ae3a152ce",
+    "raw x_yaml: https://raw.githubusercontent.com/armstrongsam25/runx-support-firewatch-skill/1fd1ead723876ddb6f29fe648a10b69ae3a152ce/skills/support-firewatch/X.yaml",
+    "raw skill_md: https://raw.githubusercontent.com/armstrongsam25/runx-support-firewatch-skill/1fd1ead723876ddb6f29fe648a10b69ae3a152ce/skills/support-firewatch/SKILL.md",
+    "Publish method: runx login --provider github --for publish, then runx registry publish ./skills/support-firewatch/SKILL.md --registry https://api.runx.ai",
+    "Install command: runx add armstrongsam25/support-firewatch@sha-78522e303a2f",
+    "Hosted harness status: passed 3/3 cases (sealed_escalation_flagged, refused_no_escalation_healthy_thread, stop_missing_required_inputs) with 3 receipts",
+    "Harness case names: sealed_escalation_flagged (sealed, process_closed), refused_no_escalation_healthy_thread (sealed, process_closed), stop_missing_required_inputs (failure, process_failed)",
+    "Harness receipt ids: sha256:fa1d2d553872420f744132afa28015cddeb92c0a25826a2ebdc3672cd7e97326, sha256:1d93140bf634dad1bc25af8e0a9ec5e936cc9129ab98cf01965fbd1b17de039d, sha256:898fac601d01841d6c7ecbebe079c667af4a931c9ff57ed3b30679151f370d03",
+    "Dogfood command: runx skill armstrongsam25/support-firewatch@sha-78522e303a2f --registry https://api.runx.ai --input-json thread='{\"customer\":\"Acme Corp\",\"turns\":[...]}' --input-json sla_policy='{\"response_time_minutes\":60,\"resolution_hours\":24}' --json",
+    "Dogfood receipt_ref: sha256:7d0450e00cad67b7b43566882ffd961490d2d50023c8d5a002b1daaf48308ed8",
+    "runx verify verdict: valid=true, digest=valid, content_address=valid, signature=valid (production mode, kid=runx-demo-key)",
+    "Dogfood output: signals.sentiment=very_negative, signals.sla_breach=true, signals.churn_risk=medium, escalation.needed=true, escalation.priority=high, escalation.context explains SLA breach (360m vs 60m) and sentiment evidence",
+    "New user walkthrough: runx add armstrongsam25/support-firewatch@sha-78522e303a2f, then runx skill armstrongsam25/support-firewatch@sha-78522e303a2f --input-json thread=... --input-json sla_policy=... --json, verify with runx verify --receipt <receipt.json> --json",
+    "Each signal carries _evidence grounding it to a specific thread turn or policy clock: sentiment grounded to customer turns, sla_breach grounded to first-response gap (360m actual vs 60m policy), churn_risk grounded to cancel/competitor language"
   ],
   "dogfood": {
-    "input": "Support thread with frustrated customer (3 turns, negative sentiment), SLA policy with 60min response time, agent responded after 145 minutes",
-    "output": "signals.sentiment=very_negative, signals.sla_breach=true, signals.churn_risk=medium, escalation.needed=true, escalation.priority=high, escalation.context includes SLA breach and sentiment evidence",
-    "receipt_id": "sha256:521da8cf9740a0d0e3d8b9f1c2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1"
-  },
-  "runx_cli_version": "runx-cli 0.6.16"
+    "package": "armstrongsam25/support-firewatch@sha-78522e303a2f",
+    "input": "Support thread with frustrated customer (3 turns, negative sentiment), SLA policy with 60min response time, agent responded after 360 minutes",
+    "command": "runx skill armstrongsam25/support-firewatch@sha-78522e303a2f --registry https://api.runx.ai --input-json thread='{\"customer\":\"Acme Corp\",\"turns\":[{\"author\":\"customer\",\"text\":\"This is unacceptable, I am very frustrated and disappointed with your service. It is been broken for days.\",\"timestamp\":\"2026-07-09T09:00:00Z\"},{\"author\":\"agent\",\"text\":\"Let me look into this for you.\",\"timestamp\":\"2026-07-09T15:00:00Z\"},{\"author\":\"customer\",\"text\":\"Six hours for a first response is ridiculous. I want to cancel my account and switch to a competitor.\",\"timestamp\":\"2026-07-09T15:30:00Z\"}]}' --input-json sla_policy='{\"response_time_minutes\":60,\"resolution_hours\":24}' --json",
+    "receipt_ref": "sha256:7d0450e00cad67b7b43566882ffd961490d2d50023c8d5a002b1daaf48308ed8",
+    "verify_verdict": "valid=true, digest=valid, content_address=valid, signature=valid (production mode, kid=runx-demo-key)",
+    "harness_cases": [
+      {"name": "sealed_escalation_flagged", "status": "sealed", "reason_code": "process_closed"},
+      {"name": "refused_no_escalation_healthy_thread", "status": "sealed", "reason_code": "process_closed"},
+      {"name": "stop_missing_required_inputs", "status": "failure", "reason_code": "process_failed"}
+    ]
+  }
 }
